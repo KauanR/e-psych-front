@@ -1,4 +1,41 @@
-<h1>Login Component</h1>
-<button (click)="login()">
-    Login
-</button>
+<div class="left-box">
+    <mat-card>
+        <mat-card-title>
+            <img id="logo" src="../../../assets/svg/logo-vertical.svg" alt="Logo">
+        </mat-card-title>
+
+        <hr/>
+
+        <mat-card-content>
+            <h3>Autenticação</h3>
+
+            <form [formGroup]="loginForm" (ngSubmit)="formSubmit()">
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email">
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password">
+                </mat-form-field>
+    
+                <div class="submit">
+                    <button mat-raised-button type="submit" color="primary">
+                        Entrar
+                    </button>
+
+                    <hr>
+                    
+                    Ou...
+
+                    <button mat-icon-button type="button" (click)="login()">
+                        <img id="google-logo" src="../../../assets/svg/google-logo.svg" alt="Google logo">
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="right-box"></div>

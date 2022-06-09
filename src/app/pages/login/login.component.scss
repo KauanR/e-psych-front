@@ -1,0 +1,70 @@
+:host {
+    display: flex;
+    height: 100%;
+    background: linear-gradient(315deg, #dbdada 0%, #FFFFFF 50%);
+
+    .left-box {
+        flex: .8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        mat-card {
+            width: 18vw;
+
+            mat-card-title {
+                display: grid;
+                justify-items: center;
+                row-gap: 1rem;
+
+                #logo {
+                    width: 10rem;
+                    height: 10rem;
+                }
+
+                h2 {
+                    margin: 0;
+                }
+            }
+
+            hr {
+                width: 50%;
+                border-color: rgba(0, 0, 0, .1);
+            }
+
+            mat-card-content {
+                width: 80%;
+                margin: 0 auto;
+
+                h3 {
+                    margin: 0;
+                    text-align: center;
+                }
+
+                form {
+                    display: grid;
+    
+                    div.submit {
+                        display: grid;
+                        row-gap: 0.5rem;
+                        justify-items: center;
+
+                        #google-logo {
+                            width: 2rem;
+                            height: 2rem;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    .right-box {
+        flex: 1;
+        background-image: url('../../../assets/images/background.png');
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
