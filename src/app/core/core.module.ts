@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core'
+import { AuthGuard } from './guards/auth.guard'
 
 const exportable: any[] = [
 
@@ -8,6 +9,8 @@ const exportable: any[] = [
     declarations: exportable,
     exports: exportable,
     imports: [],
-    providers: []
+    providers: [
+        AuthGuard
+    ]
 })
 export class CoreModule {}

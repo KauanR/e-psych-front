@@ -39,6 +39,7 @@ export const environment = {
     production: ${isProduction},
     apiUrl: '${process.env.API_URL}',
     gCloud: {
+        projectName: '${process.env.G_CLOUD_PROJECT_NAME}',
         clientId: '${process.env.G_CLOUD_CLIENT_ID}',
         secret: '${process.env.G_CLOUD_SECRET}'
     }
