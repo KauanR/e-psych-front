@@ -1,0 +1,14 @@
+div.logo-wrap {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    
+    img#logo {
+        width: 151px;
+        height: 50px;
+    }
+}
+
+span.spacer {
+    flex: 1 1 auto;
+}

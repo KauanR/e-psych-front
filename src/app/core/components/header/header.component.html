@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <div class="logo-wrap" [routerLink]="['/home']">
+        <img id="logo" src="../../../../assets/svg/logo-invertida.svg" alt="Logo">
+    </div>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>

@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<div class="app-wrap">
+    <ng-container *ngIf="currentRoute === '/login'; else authenticatedApp">
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </ng-container>
+    
+    <ng-template #authenticatedApp>
+        <header>
+            <app-header></app-header>
+        </header>
+        <main class="authenticated">
+            <router-outlet></router-outlet>
+        </main>
+    </ng-template>
+</div>
