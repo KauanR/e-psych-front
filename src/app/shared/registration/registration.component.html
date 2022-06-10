@@ -1,0 +1,101 @@
+<div mat-dialog-title>
+    <h2>Um momentinho...</h2>
+    <h4>
+        Para utilizar a ferramenta, por favor <b>complete o cadastro</b>
+    </h4>
+</div>
+
+<div mat-dialog-content>
+    <p>
+        Utilizar a ferramenta como:
+        <mat-button-toggle-group [(ngModel)]="formType" (ngModelChange)="formTypeChange()">
+            <mat-button-toggle value="patient">
+                Paciente
+            </mat-button-toggle>
+            <mat-button-toggle value="professional">
+                Profissional
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </p>
+
+    <form [formGroup]="form">
+        <mat-form-field id="name">
+            <mat-label>Nome</mat-label>
+            <input type="text" matInput formControlName="name">
+            <mat-icon fontSet="material-icons-outlined" matSuffix>person</mat-icon>
+            <mat-hint>
+                Auto-preenchido a partir do login
+            </mat-hint>
+            <mat-error *ngIf="form.get('name')?.hasError('required')">
+                O nome é obrigatório
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field id="email">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email">
+            <mat-icon fontSet="material-icons-outlined" matSuffix>email</mat-icon>
+            <mat-hint>Auto-preenchido a partir do login</mat-hint>
+        </mat-form-field>
+    
+        <mat-form-field id="phone_number">
+            <mat-label>Celular</mat-label>
+            <input type="text" matInput formControlName="phone_number">
+            <mat-icon fontSet="material-icons-outlined" matSuffix>call</mat-icon>
+            <mat-hint>(XX) XXXXX-XXXX</mat-hint>
+        </mat-form-field>
+
+        <ng-container *ngIf="formType === 'professional'">
+            <mat-divider></mat-divider>
+
+            <mat-form-field id="register_number">
+                <mat-label>Número de Registro</mat-label>
+                <input type="text" matInput formControlName="register_number">
+                <mat-hint>Seu número no Cadastro Nacional de Psicologas(os)</mat-hint>
+            </mat-form-field>
+        
+            <mat-form-field id="cost_level" class="no-padding">
+                <mat-label>Nível de Custo</mat-label>
+                <input type="text" matInput formControlName="cost_level">
+            </mat-form-field>
+        
+            <mat-form-field id="observations">
+                <mat-label>Observações</mat-label>
+                <textarea matInput formControlName="observations"></textarea>
+                <mat-hint>Descreva-se para seus possíveis clientes/pacientes</mat-hint>
+            </mat-form-field>
+        </ng-container>
+        
+    
+        <mat-divider></mat-divider>
+    
+        <mat-form-field id="address" class="no-padding">
+            <mat-label>Endereço</mat-label>
+            <input type="text" matInput formControlName="address">
+            <mat-icon fontSet="material-icons-outlined" matSuffix>home</mat-icon>
+        </mat-form-field>
+    
+        <mat-form-field id="address_number" class="no-padding">
+            <mat-label>Número</mat-label>
+            <input type="text" matInput formControlName="address_number">
+        </mat-form-field>
+    
+        <mat-form-field id="zip_code" class="no-padding">
+            <mat-label>CEP</mat-label>
+            <input type="text" matInput formControlName="zip_code">
+        </mat-form-field>
+    </form>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">
+        Sair
+    </button>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="submit()">
+        Confirmar
+    </button>
+</div>

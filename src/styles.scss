@@ -7,3 +7,15 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.no-padding {
+    .mat-form-field-wrapper {
+        padding: 0;
+    }
+}
+
+.mat-form-field-disabled {
+    .mat-form-field-suffix {
+        opacity: .5;
+    }
+}
