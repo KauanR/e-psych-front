@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
+import { SnackbarService } from 'src/app/core/services/snackbar.service'
 import { UserService } from 'src/app/core/services/user.service'
 
 @Component({
@@ -26,7 +27,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         private router: Router,
         private formBuilder: FormBuilder,
         private apiService: ApiService,
-        private userService: UserService
+        private userService: UserService,
+        private snackbar: SnackbarService
     ) {}
 
     ngOnInit(): void {
@@ -59,7 +61,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     submit(): void {
         this.apiService.post(`/${this.formType}`, this.form.getRawValue()).subscribe({
             next: () => this.userService.getUser(true),
-            error: err => console.log(err)
+            error: () => {
+                this.snackbar.open('Um erro ocorreu, tente novamente', 'error')
+            }
         })
     }
 

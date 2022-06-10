@@ -6,6 +6,8 @@ import { ApiService } from './api.service'
 import { MatDialog } from '@angular/material/dialog'
 import { RegistrationComponent } from 'src/app/shared/registration/registration.component'
 import { User } from '../interfaces/user'
+import { Router } from '@angular/router'
+import { SnackbarService } from './snackbar.service'
 
 const EMPTY_USER: User = {
     id: '',
@@ -36,7 +38,9 @@ export class UserService implements OnDestroy {
     constructor(
         private authService: SocialAuthService,
         private apiService: ApiService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private router: Router,
+        private snackbar: SnackbarService
     ) {
         this.user = new BehaviorSubject<User>(EMPTY_USER)
     }
@@ -83,8 +87,14 @@ export class UserService implements OnDestroy {
                     this.dialog.closeAll()
             },
             error: (err: HttpErrorResponse) => {
-                if(err.status === 404)
+                if(err.status === 404) {
                     this.createUser()
+                } else {
+                    this.authService.signOut()
+                    this.router.navigate(['/login'])
+                    this.snackbar.open('Ocorreu um erro na autenticação, tente novamente', 'error')
+                }
+                
             }
         })
     }
