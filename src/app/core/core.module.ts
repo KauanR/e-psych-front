@@ -11,6 +11,7 @@ import { UserService } from './services/user.service'
 import { HttpClientModule } from '@angular/common/http'
 import { ApiService } from './services/api.service'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { SnackbarService } from './services/snackbar.service'
 
 const exportable: any[] = [
     HeaderComponent
@@ -25,12 +26,13 @@ const exportable: any[] = [
         MatToolbarModule,
         MatButtonModule,
         MatIconModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
     ],
     providers: [
         UserService,
         ApiService,
-        MatSnackBarModule,
+        SnackbarService,
 
         AuthGuard
     ]
