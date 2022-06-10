@@ -16,6 +16,7 @@ export class ApiService {
 
     private handleError(error: any): Observable<any> {
         return throwError(() => {
+            console.error(error)
             return error
         })
     }
