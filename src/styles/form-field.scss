@@ -1,0 +1,11 @@
+.no-padding {
+    .mat-form-field-wrapper {
+        padding: 0;
+    }
+}
+
+.mat-form-field-disabled {
+    .mat-form-field-suffix {
+        opacity: .5;
+    }
+}
