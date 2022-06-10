@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
+import { UserService } from 'src/app/core/services/user.service'
 
 @Component({
     selector: 'app-registration',
@@ -15,26 +16,27 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     formType: 'patient' | 'professional' = 'patient'
     form: FormGroup
-    
-    user: SocialUser
-    userSub: Subscription
+
+    authUser: SocialUser
+    authUserSub: Subscription
 
     constructor(
         private authService: SocialAuthService,
         private dialog: MatDialog,
         private router: Router,
         private formBuilder: FormBuilder,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private userService: UserService
     ) {}
 
     ngOnInit(): void {
-        this.userSub = this.authService.authState.subscribe(val => {
-            this.user = val
+        this.authUserSub = this.authService.authState.subscribe(val => {
+            this.authUser = val
         })
 
         this.form = this.formBuilder.group({
-            name: [this.user.name, Validators.required],
-            email: [{value: this.user.email, disabled: true}, Validators.required],
+            name: [this.authUser.name, Validators.required],
+            email: [{value: this.authUser.email, disabled: true}, Validators.required],
             phone_number: [''],
             address: ['', Validators.required],
             address_number: ['', Validators.required],
@@ -56,12 +58,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     submit(): void {
         this.apiService.post(`/${this.formType}`, this.form.getRawValue()).subscribe({
-            next: data => {
-                console.log(data)
-            },
-            error: err => {
-                console.log(err)
-            }
+            next: () => this.userService.getUser(true),
+            error: err => console.log(err)
         })
     }
 
@@ -72,6 +70,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.userSub?.unsubscribe()
+        this.authUserSub?.unsubscribe()
     }
 }
