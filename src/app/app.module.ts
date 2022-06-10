@@ -8,6 +8,8 @@ import { PagesModule } from './pages/pages.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login'
 import { environment } from 'src/environments/environment'
+import { SharedModule } from './shared/shared.module'
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'
 
 @NgModule({
     declarations: [
@@ -19,6 +21,7 @@ import { environment } from 'src/environments/environment'
 
         CoreModule,
         PagesModule,
+        SharedModule,
         BrowserAnimationsModule
     ],
     providers: [
@@ -42,6 +45,12 @@ import { environment } from 'src/environments/environment'
                     console.error(err)
                 }
             } as SocialAuthServiceConfig
+        },
+        {
+            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+            useValue: {
+                appearance: 'outline'
+            }
         }
     ],
     bootstrap: [AppComponent]
