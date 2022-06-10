@@ -10,12 +10,12 @@
             <h3>Autenticação</h3>
 
             <form [formGroup]="loginForm" (ngSubmit)="formSubmit()">
-                <mat-form-field>
+                <mat-form-field class="no-padding">
                     <mat-label>Email</mat-label>
                     <input type="email" matInput formControlName="email">
                 </mat-form-field>
     
-                <mat-form-field>
+                <mat-form-field class="no-padding">
                     <mat-label>Password</mat-label>
                     <input type="password" matInput formControlName="password">
                 </mat-form-field>
