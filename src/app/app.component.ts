@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter, Subscription } from 'rxjs'
+import { UserService } from './core/services/user.service'
 
 @Component({
     selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit, OnDestroy {
     currentRoute: string
 
     constructor(
-        private router: Router
+        private router: Router,
+        private userService: UserService
     ) {}
 
     ngOnInit(): void {
@@ -24,6 +26,8 @@ export class AppComponent implements OnInit, OnDestroy {
             .subscribe(event => {
                 this.currentRoute = (event as NavigationEnd).url
             })
+
+        this.userService.init()
     }
 
     ngOnDestroy(): void {
