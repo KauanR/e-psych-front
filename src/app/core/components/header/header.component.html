@@ -1,11 +1,51 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
-    <div class="logo-wrap" [routerLink]="['/home']">
-        <img id="logo" src="../../../../assets/svg/logo-invertida.svg" alt="Logo">
+    <div class="prefix">        
+        <button id="home" mat-button routerLink="/home" [ngClass]="{'active': currentRoute === '/home'}">
+            <img id="logo" src="../../../../assets/svg/logo.svg" alt="Logo">
+        </button>
+
+        <button id="route2" mat-button>
+            Rota 1
+        </button>
+
+        <button id="route3" mat-button>
+            Rota 2
+        </button>
+    
+        <button id="route4" mat-button>
+            Rota 3
+        </button>
     </div>
 
     <span class="spacer"></span>
 
-    <button mat-icon-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-    </button>
+    <div class="suffix">
+        <button mat-icon-button>
+            <mat-icon>
+                notifications
+            </mat-icon>
+        </button>
+
+        <div class="user-button" matRipple [matMenuTriggerFor]="userMenu" [ngClass]="{'active': currentRoute === '/profile'}">
+            <img id="user_photo" [src]="authUser?.photoUrl" alt="Foto do usuário">
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+    
+        <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item routerLink="/profile">
+                <mat-icon>account_circle</mat-icon>
+                Seu perfil
+            </button>
+
+            <button mat-menu-item>
+                <mat-icon>help</mat-icon>
+                Ajuda
+            </button>
+
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                Sair
+            </button>
+        </mat-menu>
+    </div>
 </mat-toolbar>

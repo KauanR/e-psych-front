@@ -12,6 +12,10 @@ import { HttpClientModule } from '@angular/common/http'
 import { ApiService } from './services/api.service'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { SnackbarService } from './services/snackbar.service'
+import { MatRippleModule } from '@angular/material/core'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatDividerModule } from '@angular/material/divider'
+import { CommonModule } from '@angular/common'
 
 const exportable: any[] = [
     HeaderComponent
@@ -21,13 +25,17 @@ const exportable: any[] = [
     declarations: exportable,
     exports: exportable,
     imports: [
+        CommonModule,
         RouterModule,
         HttpClientModule,
         MatToolbarModule,
         MatButtonModule,
         MatIconModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatRippleModule,
+        MatMenuModule,
+        MatDividerModule
     ],
     providers: [
         UserService,
