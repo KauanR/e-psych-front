@@ -4,17 +4,13 @@
             <img id="logo" src="../../../../assets/svg/logo.svg" alt="Logo">
         </button>
 
-        <button id="route2" mat-button>
-            Rota 1
+        <button id="professionals" mat-button routerLink="/professionals" [ngClass]="{'active': currentRoute === '/professionals'}">
+            Profissionais
         </button>
 
-        <button id="route3" mat-button>
-            Rota 2
-        </button>
-    
-        <button id="route4" mat-button>
-            Rota 3
-        </button>
+        <button id="attendances" mat-button routerLink="/attendances" [ngClass]="{'active': currentRoute === '/attendances'}">
+            Atendimentos
+        </button>    
     </div>
 
     <span class="spacer"></span>
