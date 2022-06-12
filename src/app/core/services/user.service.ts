@@ -1,7 +1,6 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login'
-import { HttpErrorResponse } from '@angular/common/http'
 import { Injectable, OnDestroy } from '@angular/core'
-import { BehaviorSubject, debounceTime, filter, Subscription } from 'rxjs'
+import { BehaviorSubject, debounceTime, filter, forkJoin, Subscription } from 'rxjs'
 import { ApiService } from './api.service'
 import { MatDialog } from '@angular/material/dialog'
 import { RegistrationComponent } from 'src/app/shared/registration/registration.component'
@@ -62,23 +61,35 @@ export class UserService implements OnDestroy {
             email: this.authUser.email
         }
 
-        this.apiService.post('/find-user', payload).subscribe({
+        const requests = [
+            this.apiService.post('/patient/find', payload),
+            this.apiService.post('/professional/find', payload)
+        ]
+
+        forkJoin(requests).subscribe({
             next: res => {
-                const type = res.register_number ? 'professional' : 'patient'
+                const [patient, professional] = res
+
+                if(Object.keys(patient).length === 0 && Object.keys(professional).length === 0)
+                    this.createUser()
+                
+                const user = Object.keys(patient).length !== 0 ? patient : professional
+                const user_type = Object.keys(patient).length !== 0 ? 'patient' : 'professional'
+
                 this.user.next({
-                    id: res.id,
-                    type,
+                    id: user.id,
+                    type: user_type,
                     attributes: {
-                        name: res.name,
-                        email: res.email,
-                        phoneNumber: res.phone_number,
-                        address: res.address,
-                        addressNumber: res.address_number,
-                        zipCode: res.zip_code,
-                        ...(type === 'professional') && {
-                            registerNumber: res.register_number,
-                            costLevel: res.cost_level,
-                            observations: res.observations
+                        name: user.name,
+                        email: user.email,
+                        phoneNumber: user.phone_number,
+                        address: user.address,
+                        addressNumber: user.address_number,
+                        zipCode: user.zip_code,
+                        ...(user_type === 'professional') && {
+                            registerNumber: user.register_number,
+                            costLevel: user.cost_level,
+                            observations: user.observations
                         }
                     }
                 })
@@ -86,15 +97,10 @@ export class UserService implements OnDestroy {
                 if(closeDialogs)
                     this.dialog.closeAll()
             },
-            error: (err: HttpErrorResponse) => {
-                if(err.status === 404) {
-                    this.createUser()
-                } else {
-                    this.authService.signOut()
-                    this.router.navigate(['/login'])
-                    this.snackbar.open('Ocorreu um erro na autenticação, tente novamente', 'error')
-                }
-                
+            error: () => {
+                this.authService.signOut()
+                this.router.navigate(['/login'])
+                this.snackbar.open('Ocorreu um erro na autenticação, tente novamente', 'error')
             }
         })
     }
