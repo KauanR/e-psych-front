@@ -1,3 +1,33 @@
-<h1>
-    Home Component
-</h1>
+<mat-card>
+    <mat-card-title>
+        <img id="logo" src="../../../assets/svg/logo-vertical.svg" alt="Logo">
+    </mat-card-title>
+
+    <mat-card-content>
+        <h3>
+            Bem vindo ao <b>ePsych</b>, Kauan!
+        </h3>
+
+        <p>
+            O principal objetivo da ferramenta é facilitar o processo de <span>encontrar e gerenciar acompanhamento psicológico profissional</span> de maneira simples.
+        </p>
+
+        <p>
+            Explore:
+        </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button *ngIf="user?.type === 'patient'" mat-flat-button color="primary" routerLink="/professionals">
+            Procurar profissionais
+        </button>
+
+        <button mat-flat-button [color]="user?.type === 'patient' ? 'accent' : 'primary'" routerLink="/attendances">
+            Meus atendimentos
+        </button>
+
+        <button mat-stroked-button color="accent" routerLink="/profile">
+            Meu perfil
+        </button>
+    </mat-card-actions>
+</mat-card>

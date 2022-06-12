@@ -1,0 +1,47 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+mat-card {
+    width: 35vw;
+    height: fit-content;
+
+    mat-card-title {
+        display: flex;
+        justify-content: center;
+
+        #logo {
+            width: 15rem;
+            height: 15rem;
+        }
+    }
+
+    mat-card-content {
+        h3 {
+            text-align: center;
+
+            b {
+                color: var(--primary);
+            }
+        }
+
+        p {
+            text-align: center;
+
+            span {
+                color: var(--accent);
+            }
+        }
+    }
+
+    mat-card-actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: .75rem;
+    }
+}
