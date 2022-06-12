@@ -37,7 +37,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         })
 
         this.form = this.formBuilder.group({
-            name: [this.authUser.name, Validators.required],
+            name: [{value: this.authUser.name, disabled: true}, Validators.required],
             email: [{value: this.authUser.email, disabled: true}, Validators.required],
             phone_number: [''],
             address: ['', Validators.required],

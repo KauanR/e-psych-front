@@ -45,6 +45,24 @@
             <mat-hint>(XX) XXXXX-XXXX</mat-hint>
         </mat-form-field>
 
+        <mat-divider></mat-divider>
+    
+        <mat-form-field id="address" class="no-padding">
+            <mat-label>Endereço</mat-label>
+            <input type="text" matInput formControlName="address">
+            <mat-icon fontSet="material-icons-outlined" matSuffix>home</mat-icon>
+        </mat-form-field>
+    
+        <mat-form-field id="address_number" class="no-padding">
+            <mat-label>Número</mat-label>
+            <input type="text" matInput formControlName="address_number">
+        </mat-form-field>
+    
+        <mat-form-field id="zip_code" class="no-padding">
+            <mat-label>CEP</mat-label>
+            <input type="text" matInput formControlName="zip_code">
+        </mat-form-field>
+
         <ng-container *ngIf="formType === 'professional'">
             <mat-divider></mat-divider>
 
@@ -65,25 +83,6 @@
                 <mat-hint>Descreva-se para seus possíveis clientes/pacientes</mat-hint>
             </mat-form-field>
         </ng-container>
-        
-    
-        <mat-divider></mat-divider>
-    
-        <mat-form-field id="address" class="no-padding">
-            <mat-label>Endereço</mat-label>
-            <input type="text" matInput formControlName="address">
-            <mat-icon fontSet="material-icons-outlined" matSuffix>home</mat-icon>
-        </mat-form-field>
-    
-        <mat-form-field id="address_number" class="no-padding">
-            <mat-label>Número</mat-label>
-            <input type="text" matInput formControlName="address_number">
-        </mat-form-field>
-    
-        <mat-form-field id="zip_code" class="no-padding">
-            <mat-label>CEP</mat-label>
-            <input type="text" matInput formControlName="zip_code">
-        </mat-form-field>
     </form>
 </div>
 
