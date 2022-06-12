@@ -13,6 +13,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'profile',
+        loadChildren: () => import('./pages/profile/profile.module').then(mod => mod.ProfileModule),
+        canActivate: [AuthGuard]
+    },
+    {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'

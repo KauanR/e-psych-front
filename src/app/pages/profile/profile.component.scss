@@ -1,0 +1,74 @@
+:host {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    column-gap: 3rem;
+    margin: 0 10rem;
+}
+
+mat-card.left-card {
+    height: max-content;
+
+    mat-card-content {
+        display: grid;
+        row-gap: 1rem;
+
+        :first-child {
+            margin: 1rem 0 0 0;
+        }
+
+        h3 {
+            text-align: center;
+            font-style: italic;
+        }
+
+        div.info {
+            text-align: center;
+
+            h4 {
+                margin: 0;
+            }
+        }
+    }
+}
+
+mat-card.right-card {
+    height: max-content;
+
+    mat-card-header {
+        mat-icon {
+            font-size: 40px;
+            color: var(--accent);
+        }
+    }
+
+    mat-card-content {
+        form,
+        div.loading {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto 1fr;
+            row-gap: 1rem;
+            column-gap: 1rem;
+    
+            #name,
+            #email,
+            #register_number,
+            #cost_level {
+                grid-column: span 2;
+            }
+
+            #observations,
+            mat-divider {
+                grid-column: span 4;
+            }
+
+            #phone_number,
+            #address,
+            #address_number,
+            #zip_code {
+                grid-column: span 1;
+            }
+
+        }
+    }
+}
