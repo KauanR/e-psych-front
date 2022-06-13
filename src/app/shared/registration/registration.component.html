@@ -74,7 +74,7 @@
         
             <mat-form-field id="cost_level" class="no-padding">
                 <mat-label>Nível de Custo</mat-label>
-                <input type="text" matInput formControlName="cost_level">
+                <input type="text" min="1" max="5" matInput formControlName="cost_level">
             </mat-form-field>
         
             <mat-form-field id="observations">
