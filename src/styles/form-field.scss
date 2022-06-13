@@ -4,6 +4,12 @@
     }
 }
 
+.no-label {
+    .mat-form-field-infix {
+        padding: 0.5em 0 1em 0;
+    }
+}
+
 .mat-form-field-disabled {
     .mat-form-field-suffix {
         opacity: .5;
