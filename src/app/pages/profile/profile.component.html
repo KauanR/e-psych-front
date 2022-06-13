@@ -148,6 +148,14 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
+        <button
+            mat-stroked-button
+            color="warn"
+            [disabled]="!(user && form)"
+            (click)="dialog.open(deleteConfirmation)">
+            Excluir perfil
+        </button>
+
         <button 
             mat-raised-button 
             color="primary"
@@ -157,3 +165,40 @@
         </button>
     </mat-card-actions>
 </mat-card>
+
+<ng-template #deleteConfirmation>
+    <div class="delete-confirmation-wrap">
+        <h2 mat-dialog-title>
+            <mat-icon>
+                warning
+            </mat-icon>
+            Atenção!
+        </h2>
+
+        <div mat-dialog-content>
+            <h4>
+                Essa operação é irreversível. Ela excluirá permanentemente todos os dados relacionados à sua conta, incluindo atendimentos, consultas e laudos.
+            </h4>
+            <h4>
+                Por favor, para confirmar, digite <b>{{authUser?.email}}</b> para confirmar.
+            </h4>
+
+            <div class="input-wrap">
+                <mat-form-field id="confirmation" class="no-padding no-label">
+                    <mat-label></mat-label>
+                    <input type="email" matInput [(ngModel)]="deleteConfirmationCtrl">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div mat-dialog-actions align="center">
+            <button
+                mat-raised-button
+                color="warn"
+                [disabled]="authUser?.email !== deleteConfirmationCtrl"
+                (click)="delete()">
+                Confirmar exclusão
+            </button>
+        </div>
+    </div>
+</ng-template>

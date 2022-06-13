@@ -72,3 +72,34 @@ mat-card.right-card {
         }
     }
 }
+
+div.delete-confirmation-wrap {
+    max-width: 27vw;
+
+    h2[mat-dialog-title] {
+        display: flex;
+        align-items: center;
+        column-gap: .5rem;
+
+        mat-icon {
+            color: var(--red);
+        }
+    }
+
+    div.mat-dialog-content {
+        h4 {
+            text-align: center;
+            margin: 0;
+        }
+
+        div.input-wrap {
+            margin-top: .75rem;
+            display: flex;
+            justify-content: center;
+
+            mat-form-field {
+                width: 60%;
+            }
+        }
+    }
+}
