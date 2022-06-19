@@ -78,7 +78,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     private countsHandler(): void {
-        const url = '/attendance/count'
+        const url = '/attendances/count'
         const payload = {
             source_id: this.user.id,
             source_type: this.user.type

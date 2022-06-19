@@ -62,8 +62,8 @@ export class UserService implements OnDestroy {
         }
 
         const requests = [
-            this.apiService.post('/patient/find', payload),
-            this.apiService.post('/professional/find', payload)
+            this.apiService.post('/patients/find', payload),
+            this.apiService.post('/professionals/find', payload)
         ]
 
         forkJoin(requests).subscribe({
