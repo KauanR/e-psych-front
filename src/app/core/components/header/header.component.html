@@ -23,7 +23,11 @@
         </button>
 
         <div class="user-button" matRipple [matMenuTriggerFor]="userMenu" [ngClass]="{'active': currentRoute === '/profile'}">
-            <img id="user_photo" [src]="authUser?.photoUrl" alt="Foto do usuário">
+            <img 
+                id="user_photo" 
+                [src]="userPhotoUrl"
+                onerror="this.onerror=null;this.src='../../../assets/images/user-placeholder.png'"
+                alt="Foto do usuário">
             <mat-icon>arrow_drop_down</mat-icon>
         </div>
     

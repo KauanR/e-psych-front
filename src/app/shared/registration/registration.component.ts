@@ -59,7 +59,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
 
     submit(): void {
-        this.apiService.post(`/${this.formType}`, this.form.getRawValue()).subscribe({
+        const payload = {
+            ...this.form.getRawValue(),
+            photo_url: this.authUser.photoUrl
+        }
+
+        this.apiService.post(`/${this.formType}s`, payload).subscribe({
             next: () => this.userService.getUser(true),
             error: () => {
                 this.snackbar.open('Um erro ocorreu, tente novamente', 'error')

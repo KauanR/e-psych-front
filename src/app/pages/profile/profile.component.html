@@ -1,11 +1,15 @@
 <mat-card class="left-card">
     <mat-card-header>
-        <img mat-card-avatar [src]="authUser?.photoUrl" alt="Foto do usuário">
+        <img 
+            mat-card-avatar 
+            [src]="user?.attributes.photoUrl" 
+            onerror="this.onerror=null;this.src='../../../assets/images/user-placeholder.png'" 
+            alt="Foto do usuário">
         <mat-card-title>
-            {{authUser?.name}}
+            {{user?.id ? user?.attributes.name : '...'}}
         </mat-card-title>
         <mat-card-subtitle>
-            {{authUser?.email}}
+            {{user?.id ? user?.attributes.email : '...'}}
         </mat-card-subtitle>
     </mat-card-header>
 
@@ -180,7 +184,7 @@
                 Essa operação é irreversível. Ela excluirá permanentemente todos os dados relacionados à sua conta, incluindo atendimentos, consultas e laudos.
             </h4>
             <h4>
-                Por favor, para confirmar, digite <b>{{authUser?.email}}</b> para confirmar.
+                Por favor, para confirmar, digite <b>{{user?.attributes.email}}</b> para confirmar.
             </h4>
 
             <div class="input-wrap">
@@ -195,7 +199,7 @@
             <button
                 mat-raised-button
                 color="warn"
-                [disabled]="authUser?.email !== deleteConfirmationCtrl"
+                [disabled]="user?.attributes.email !== deleteConfirmationCtrl"
                 (click)="delete()">
                 Confirmar exclusão
             </button>

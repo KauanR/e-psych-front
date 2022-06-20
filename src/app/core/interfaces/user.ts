@@ -4,6 +4,7 @@ export interface User {
     attributes: {
         name: string
         email: string
+        photoUrl: string
         phoneNumber: string
         address: string
         addressNumber: string

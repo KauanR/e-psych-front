@@ -1,9 +1,9 @@
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login'
+import { SocialAuthService } from '@abacritt/angularx-social-login'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
-import { debounceTime, filter, Subscription } from 'rxjs'
+import { debounceTime, filter, Subscription, take } from 'rxjs'
 import { User } from 'src/app/core/interfaces/user'
 import { ApiService } from 'src/app/core/services/api.service'
 import { SnackbarService } from 'src/app/core/services/snackbar.service'
@@ -18,9 +18,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     user: User
     userSub: Subscription
-
-    authUser: SocialUser
-    authUserSub: Subscription
 
     form: FormGroup
 
@@ -42,10 +39,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        this.authUserSub = this.authService.authState.subscribe(val => {
-            this.authUser = val
-        })
-
         this.userSub = this.userService.user
             .pipe(
                 debounceTime(500),
@@ -62,7 +55,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         const data = this.user.attributes
 
         this.form = this.formBuilder.group({
-            name: [{value: data.name, disabled:true}, Validators.required],
+            name: [{value: data.name, disabled: true}, Validators.required],
             email: [{value: data.email, disabled: true}, Validators.required],
             phone_number: [data.phoneNumber],
             address: [data.address, Validators.required],
@@ -95,11 +88,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     submit(): void {
-        const url = `/${this.user.type}/${this.user.id}` 
-        const payload = this.form.value
+        const payload = {
+            ...this.form.value,
+            photo_url: ''
+        }
 
-        this.apiService.put(url, payload).subscribe({
-            next: () => this.snackbar.open('Perfil atualizado com sucesso!', 'success'),
+        const authStateSub = this.authService.authState.pipe(take(1)).subscribe(val => {
+            payload.photo_url = val.photoUrl
+        })
+
+        this.apiService.put(`/${this.user.type}s/${this.user.id}`, payload).subscribe({
+            next: () => {
+                this.snackbar.open('Perfil atualizado com sucesso!', 'success')
+                authStateSub.unsubscribe()
+                this.userService.getUser(true)
+            },
             error: () => this.snackbar.open('Um erro ocorreu, tente novamente', 'error')
         })
     }
@@ -120,7 +123,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.authUserSub?.unsubscribe()
         this.userSub?.unsubscribe()
     }
 }

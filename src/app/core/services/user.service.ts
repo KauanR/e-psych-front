@@ -15,6 +15,7 @@ const EMPTY_USER: User = {
         name: '',
         email: '',
         phoneNumber: '',
+        photoUrl: '',
         address: '',
         addressNumber: '',
         zipCode: '',
@@ -82,6 +83,7 @@ export class UserService implements OnDestroy {
                     attributes: {
                         name: user.name,
                         email: user.email,
+                        photoUrl: user.photo_url,
                         phoneNumber: user.phone_number,
                         address: user.address,
                         addressNumber: user.address_number,

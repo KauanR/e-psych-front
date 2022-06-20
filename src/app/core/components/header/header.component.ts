@@ -1,7 +1,8 @@
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login'
+import { SocialAuthService } from '@abacritt/angularx-social-login'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter, Subscription } from 'rxjs'
+import { UserService } from '../../services/user.service'
 
 @Component({
     selector: 'app-header',
@@ -10,20 +11,22 @@ import { filter, Subscription } from 'rxjs'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-    authUser: SocialUser
-    authUserSub: Subscription
+    userPhotoUrl: string
+    userSub: Subscription
 
     currentRoute: string
     routerSub: Subscription
 
     constructor(
         private authService: SocialAuthService,
+        private userService: UserService,
         private router: Router
     ) {}
 
     ngOnInit(): void {
-        this.authUserSub = this.authService.authState.subscribe(val => {
-            this.authUser = val
+        this.userSub = this.userService.user.subscribe(val => {
+            console.log(val)
+            this.userPhotoUrl = val.attributes.photoUrl
         })
 
         this.routerSub = this.router.events
@@ -42,7 +45,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.authUserSub?.unsubscribe()
         this.routerSub?.unsubscribe()
     }
 }
