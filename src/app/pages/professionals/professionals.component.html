@@ -1,1 +1,99 @@
-<h1>Professionals Page</h1>
+<mat-card>
+    <mat-card-header>
+        <mat-icon mat-card-avatar>
+            manage_search
+        </mat-icon>
+        <mat-card-title>
+            Profissionais
+        </mat-card-title>
+        <mat-card-subtitle>
+            Procure o profissional que mais se encaixe com seus objetivos! Utilize os filtros caso necessário.
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form class="filters" [formGroup]="form">
+            <mat-form-field id="name" class="no-padding">
+                <mat-label>Nome</mat-label>
+                <input type="text" matInput formControlName="name">
+                <mat-icon fontSet="material-icons-outlined" matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field id="email" class="no-padding">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput formControlName="email">
+                <mat-icon fontSet="material-icons-outlined" matSuffix>email</mat-icon>
+            </mat-form-field>
+            
+            <mat-form-field id="register_number" class="no-padding">
+                <mat-label>Número de Registro</mat-label>
+                <input type="text" matInput formControlName="register_number">
+            </mat-form-field>
+
+            <mat-form-field id="min_cost_level" class="no-padding">
+                <mat-label>Nível de custo mínimo</mat-label>
+                <input type="number" min="1" max="5" matInput formControlName="min_cost_level">
+            </mat-form-field>
+
+            <mat-form-field id="min_cost_level" class="no-padding">
+                <mat-label>Nível de custo máximo</mat-label>
+                <input type="number" min="1" max="5" matInput formControlName="max_cost_level">
+            </mat-form-field>
+        </form>
+
+        <table mat-table [dataSource]="professsionals">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell [hidden]="true" *matHeaderCellDef> id </th>
+                <td mat-cell [hidden]="true" *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="photoUrl">
+                <th mat-header-cell *matHeaderCellDef> photoUrl </th>
+                <td mat-cell *matCellDef="let element">
+                    <img 
+                    class="photo" 
+                    [src]="element.photoUrl"
+                    onerror="this.onerror=null;this.src='../../../assets/images/user-placeholder.png'"
+                    alt="Foto do usuário">
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="registerNumber">
+                <th mat-header-cell *matHeaderCellDef> registerNumber </th>
+                <td mat-cell *matCellDef="let element"> {{element.registerNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="costLevel">
+                <th mat-header-cell *matHeaderCellDef> costLevel </th>
+                <td mat-cell *matCellDef="let element"> {{element.costLevel}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fullAddress">
+                <th mat-header-cell *matHeaderCellDef> fullAddress </th>
+                <td mat-cell *matCellDef="let element"> {{element.fullAddress}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="professionalsColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: professionalsColumns;"></tr>
+        </table>
+
+        <mat-paginator 
+            showFirstLastButtons
+            formField
+            [length]="professionalsCount" 
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 25]" 
+            [pageSize]="5">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>
