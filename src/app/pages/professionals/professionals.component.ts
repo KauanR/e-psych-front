@@ -18,8 +18,8 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
 
     loading: boolean
     professionalsCount: number = 0
-    professsionals: Array<ProfessionalSum> = []
-    professsionalsSub: Subscription
+    professionals: Array<ProfessionalSum> = []
+    professionalsSub: Subscription
     professionalsColumns: Array<string>
 
     constructor(
@@ -48,7 +48,7 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     ngAfterViewInit(): void {
-        this.professsionalsSub = merge(this.form.valueChanges, this.paginator.page)
+        this.professionalsSub = merge(this.form.valueChanges, this.paginator.page)
             .pipe(
                 startWith({}),
                 debounceTime(500),
@@ -67,11 +67,13 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
                             full_address,
                             register_number,
                             photo_url,
+                            observations,
                             ...otherAttributes 
                         } = item
 
                         return {
                             ...otherAttributes,
+                            observations: observations.replace(/^(.{100}[^\s]*).*/, "$1"),
                             registerNumber: register_number,
                             costLevel: cost_level,
                             fullAddress: full_address,
@@ -81,12 +83,12 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
                 })
             )
             .subscribe((data: Array<ProfessionalSum>) => {
-                this.professsionals = data
+                this.professionals = data
             })
     }
 
     ngOnDestroy(): void {
-        this.professsionalsSub?.unsubscribe()
+        this.professionalsSub?.unsubscribe()
     }
 
 }

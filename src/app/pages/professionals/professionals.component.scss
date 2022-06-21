@@ -1,8 +1,8 @@
-mat-card {
+mat-card.main-card {
     width: 75%;
     margin: 0 auto;
 
-    mat-card-header {
+    & > mat-card-header {
         mat-card-title {
             color: var(--accent);
         }
@@ -21,11 +21,60 @@ mat-card {
             padding: 0 2rem;
         }
 
-        img.photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
+        div.data-grid {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            column-gap: 1rem;
+            row-gap: 1rem;
+
+            mat-card.professional {
+                &:hover {
+                    box-shadow: 0 1px 3px 0 rgb(60 64 67 / 30%), 0 4px 8px 3px rgb(60 64 67 / 15%);
+                    background-color: #fafafb;
+                    cursor: pointer;
+                }
+
+                mat-card-header {
+                    margin-bottom: 1rem;
+
+                    img[mat-card-avatar] {
+                        width: 85px;
+                        height: 85px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    ::ng-deep .mat-card-header-text {
+                        margin: auto;
+
+                        mat-card-title {
+                            font-weight: 400;
+                        }
+
+                        mat-card-subtitle {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+
+                mat-card-content {
+                    text-align: center;
+
+                    div.observations {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 40px;
+                    }
+
+                    mat-divider {
+                        margin: 0.75rem auto;
+                        width: 50%;
+                    }
+                }
+            }
         }
     }
 }

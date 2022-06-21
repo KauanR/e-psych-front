@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 import { ProfessionalsRoutingModule } from './professionals-routing.module'
 import { ProfessionalsComponent } from './professionals.component'
 import { MatCardModule } from '@angular/material/card'
-import { MatTableModule } from '@angular/material/table'
+import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatIconModule } from '@angular/material/icon'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -22,7 +22,7 @@ import { MatDividerModule } from '@angular/material/divider'
         ProfessionalsRoutingModule,
 
         MatCardModule,
-        MatTableModule,
+        MatTooltipModule,
         MatPaginatorModule,
         MatIconModule,
         MatFormFieldModule,
