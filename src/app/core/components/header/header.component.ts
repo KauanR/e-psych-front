@@ -25,7 +25,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.userSub = this.userService.user.subscribe(val => {
-            console.log(val)
             this.userPhotoUrl = val.attributes.photoUrl
         })
 
