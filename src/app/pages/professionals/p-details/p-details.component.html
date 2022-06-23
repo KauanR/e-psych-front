@@ -1,0 +1,123 @@
+<div class="title">
+    <img 
+        [src]="data?.photoUrl"
+        onerror="this.onerror=null;this.src='../../../../assets/images/user-placeholder.png'"
+        alt="Foto do profissional"
+    >
+    <h2>
+        {{ data?.name }}
+    </h2>
+</div>
+
+<mat-tab-group mat-align-tabs="center" selectedIndex="1">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-label-icon">
+                contact_mail
+            </mat-icon>
+            Contato
+        </ng-template>
+        
+        <div class="content">
+            <mat-form-field id="email" class="no-padding">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [value]="data?.email" readonly>
+                <mat-icon fontSet="material-icons-outlined" matSuffix>email</mat-icon>
+            </mat-form-field>
+    
+            <mat-form-field id="phoneNumber" class="no-padding">
+                <mat-label>Celular</mat-label>
+                <input type="text" matInput [value]="data?.phoneNumber" readonly>
+                <mat-icon fontSet="material-icons-outlined" matSuffix>call</mat-icon>
+            </mat-form-field>
+    
+            <mat-form-field id="address" class="no-padding">
+                <mat-label>Endereço</mat-label>
+                <input type="text" matInput [value]="data?.address" readonly>
+                <mat-icon fontSet="material-icons-outlined" matSuffix>home</mat-icon>
+            </mat-form-field>
+    
+            <mat-form-field id="addressNumber" class="no-padding">
+                <mat-label>Número</mat-label>
+                <input type="number" matInput [value]="data?.addressNumber" readonly>
+            </mat-form-field>
+    
+            <mat-form-field id="zipCode" class="no-padding">
+                <mat-label>CEP</mat-label>
+                <input type="text" matInput [value]="data?.zipCode" readonly>
+            </mat-form-field>
+        </div>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-label-icon">
+                info
+            </mat-icon>
+            Informações
+        </ng-template>
+        
+        <div class="content">
+            <mat-form-field id="registerNumber" class="no-padding">
+                <mat-label>Número de Registro</mat-label>
+                <input type="text" matInput [value]="data?.registerNumber" readonly>
+            </mat-form-field>
+
+            <mat-form-field id="costLevel" class="no-padding">
+                <mat-label>Nível de custo</mat-label>
+                <input type="text" matInput [value]="data?.costLevel" readonly>
+            </mat-form-field>
+
+            <mat-form-field id="observations" class="no-padding">
+                <mat-label>Observações</mat-label>
+                <textarea matInput [value]="data?.observations" readonly></textarea>
+            </mat-form-field>
+        </div>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-label-icon">
+                more_horiz
+            </mat-icon>
+            Extras
+        </ng-template>
+        
+        <div class="content">
+            <p>
+                <b>Usuário da plataforma desde</b> 
+                <br>
+                {{ formatedCreatedAt }}
+            </p>
+
+            <mat-divider></mat-divider>
+
+            <p>
+                <b>Pacientes atualmente em acompanhamento</b>
+                <br>
+                {{ data?.attendancesCount }}
+            </p>
+
+            <mat-divider></mat-divider>
+
+            <p>
+                <b>Pacientes totais</b>
+                <br>
+                {{ data?.allAttendancesCount }}
+            </p>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+<div class="footer">
+    <button mat-button (click)="dialog.closeAll()">
+        Fechar
+    </button>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="requestAttendance()">
+        Solicitar acompanhamento
+    </button>
+</div>

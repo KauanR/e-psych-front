@@ -50,6 +50,7 @@ mat-card.main-card {
                         margin: auto;
 
                         mat-card-title {
+                            font-size: 18px;
                             font-weight: 400;
                         }
 
@@ -66,7 +67,7 @@ mat-card.main-card {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        min-height: 40px;
+                        min-height: 60px;
                     }
 
                     mat-divider {

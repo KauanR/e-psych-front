@@ -1,0 +1,56 @@
+:host {
+    display: grid;
+
+    div.title {
+        display: flex;
+        row-gap: 0.5rem;
+        flex-direction: column;
+        align-items: center;
+    
+        img {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    
+        h2 {
+            margin: 0;
+            font-weight: 400;
+        }
+    }
+
+    mat-icon.tab-label-icon {
+        margin-right: .25rem;
+    }
+
+    mat-tab-group {
+        margin-bottom: 1.5rem;
+
+        div.content {
+            text-align: center;
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto 1fr;
+            gap: 1rem;
+
+            #email,
+            #phoneNumber,
+            #address,
+            #registerNumber,
+            #costLevel,
+            #observations,
+            p,
+            mat-divider {
+                grid-column: span 2;
+            }
+        }
+    }
+
+    div.footer {
+        display: flex;
+        justify-content: flex-end;
+        column-gap: 15px;
+    }
+}

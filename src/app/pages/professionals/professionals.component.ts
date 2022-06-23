@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator'
 import { debounceTime, map, merge, startWith, Subscription, switchMap } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
@@ -13,6 +14,7 @@ import { ProfessionalSum } from './interfaces/professional-sum'
 export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild(MatPaginator) paginator: MatPaginator
+    @ViewChild('pDetails') pDetailsTemplateRef: TemplateRef<any>
 
     form: FormGroup
 
@@ -22,9 +24,12 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
     professionalsSub: Subscription
     professionalsColumns: Array<string>
 
+    selectedProfessionalId: string
+
     constructor(
         private formBuilder: FormBuilder,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -85,6 +90,11 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
             .subscribe((data: Array<ProfessionalSum>) => {
                 this.professionals = data
             })
+    }
+
+    openPDetails(id: string): void {
+        this.selectedProfessionalId = id
+        this.dialog.open(this.pDetailsTemplateRef)
     }
 
     ngOnDestroy(): void {

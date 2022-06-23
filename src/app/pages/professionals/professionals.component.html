@@ -42,34 +42,50 @@
         </form>
 
         <div class="data-grid">
-            <mat-card class="professional" *ngFor="let pro of professionals">
-                <mat-card-header>
-                    <img 
-                        mat-card-avatar
-                        [src]="pro.photoUrl"
-                        onerror="this.onerror=null;this.src='../../../assets/images/user-placeholder.png'"
-                        alt="Foto do usuário"
-                    >
-                    <mat-card-title>
-                        {{ pro.name }}
-                    </mat-card-title>
-                    <mat-card-subtitle matTooltip="Email e número de registro">
-                        {{ pro.email }}
-                        <br>
-                        {{ pro.registerNumber }}
-                    </mat-card-subtitle>
-                </mat-card-header>
+            <ng-container *ngIf="!loading; else loadingTemplate">
+                <mat-card 
+                    *ngFor="let pro of professionals"
+                    (click)="openPDetails(pro.id)"
+                    class="professional" 
+                    matRipple
+                >
+                    <mat-card-header>
+                        <img 
+                            mat-card-avatar
+                            [src]="pro.photoUrl"
+                            onerror="this.onerror=null;this.src='../../../assets/images/user-placeholder.png'"
+                            alt="Foto do profissional"
+                        >
+                        <mat-card-title>
+                            {{ pro.name }}
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            {{ pro.email }}
+                            <br>
+                            {{ pro.registerNumber }}
+                        </mat-card-subtitle>
+                    </mat-card-header>
+    
+                    <mat-card-content>
+                        <div class="observations">
+                            {{ pro.observations }}<ng-container *ngIf="pro.observations.length > 100 || !pro.observations">...</ng-container>
+                        </div>
+                        <mat-divider inset></mat-divider>
+                        {{ pro.fullAddress }}
+                        <mat-divider inset></mat-divider>
+                        {{ pro.costLevel }}
+                    </mat-card-content>
+    
+                    <mat-card-footer></mat-card-footer>
+                </mat-card>
+            </ng-container>
 
-                <mat-card-content>
-                    <div class="observations">
-                        {{ pro.observations }}<ng-container *ngIf="pro.observations.length > 65 || !pro.observations">...</ng-container>
-                    </div>
-                    <mat-divider inset></mat-divider>
-                    {{ pro.fullAddress }}
-                    <mat-divider inset></mat-divider>
-                    {{ pro.costLevel }}
-                </mat-card-content>
-            </mat-card>
+            <ng-template #loadingTemplate>
+                <ngx-skeleton-loader
+                    *ngFor="let item of [].constructor(8)"
+                    [theme]="{height: '250px'}"
+                ></ngx-skeleton-loader>
+            </ng-template>
         </div>
 
         <mat-paginator 
@@ -81,3 +97,7 @@
         </mat-paginator>
     </mat-card-content>
 </mat-card>
+
+<ng-template #pDetails>
+    <app-professionals-details [id]="selectedProfessionalId"></app-professionals-details>
+</ng-template>
