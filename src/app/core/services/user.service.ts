@@ -22,7 +22,9 @@ const EMPTY_USER: User = {
         zipCode: '',
         registerNumber: '',
         costLevel: 0,
-        observations: ''
+        observations: '',
+        createdAt: '',
+        updatedAt: ''
     }
 }
 
