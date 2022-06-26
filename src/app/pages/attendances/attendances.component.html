@@ -1,1 +1,48 @@
-<h1>Attendances Page</h1>
+<mat-card class="main">
+    <mat-card-header>
+        <mat-icon mat-card-avatar>
+            healing
+        </mat-icon>
+        <mat-card-title>
+            Acompanhamentos profissionais
+        </mat-card-title>
+        <mat-card-subtitle>
+            Aqui ficam os seus acompanhamentos, especione-os para ter mais detalhes ou até marcar consultas
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form class="filters" [formGroup]="filterForm">
+            <h4>Mostrar atendimentos: </h4>
+            <div>
+                <mat-checkbox formControlName="active">Ativos</mat-checkbox>
+                <mat-checkbox formControlName="inactive">Inativos</mat-checkbox>
+                <mat-divider inset vertical></mat-divider>
+                <mat-checkbox formControlName="pending">Pendentes</mat-checkbox>
+                <mat-checkbox formControlName="rejected">Rejeitados</mat-checkbox>
+            </div>
+        </form>
+
+        <div class="attendances-wrap" *ngIf="userType">
+            <ng-container *ngFor="let at of attendances; let i = index">
+                <mat-card [ngClass]="{inactive: statusIconMap[at.status] === 'do_not_disturb_on'}" class="attendance">
+                    <div class="head">
+                        <img 
+                            class="photo"
+                            [src]="userType === 'patient' ? at.professional.photoUrl : at.patient.photoUrl"
+                            onerror="this.onerror=null;this.src='../../../assets/images/user-placeholder.png'">
+                        <mat-icon [ngClass]="statusIconMap[at.status]">
+                            {{ statusIconMap[at.status] }}
+                        </mat-icon>
+                    </div>
+                    <h2>
+                        {{ userType === 'patient' ? at.professional.name : at.patient.name }}
+                    </h2>
+                </mat-card>
+
+                <mat-divider inset *ngIf="i !== attendances.length - 1"></mat-divider>
+            </ng-container>
+        </div>
+
+    </mat-card-content>
+</mat-card>
