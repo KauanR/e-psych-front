@@ -1,6 +1,10 @@
 mat-card.main-card {
-    width: 75%;
+    width: 90%;
     margin: 0 auto;
+
+    @media screen and (min-width: 1900px) {
+        width: 75%;
+    }
 
     & > mat-card-header {
         mat-card-title {
