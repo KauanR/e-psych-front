@@ -18,7 +18,7 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
 
     form: FormGroup
 
-    loading: boolean
+    loading: boolean = true
     professionalsCount: number = 0
     professionals: Array<ProfessionalSum> = []
     professionalsSub: Subscription
