@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { ApiService } from 'src/app/core/services/api.service'
 import { SnackbarService } from 'src/app/core/services/snackbar.service'
 import { UserService } from 'src/app/core/services/user.service'
+import { UtilsService } from 'src/app/core/services/utils.service'
 import { ProfessionalDetails } from '../interfaces/professional-details'
 
 @Component({
@@ -19,6 +20,7 @@ export class ProfessionalsDetailsComponent implements OnInit {
     formatedCreatedAt: string
 
     constructor(
+        private utils: UtilsService,
         private userService: UserService,
         private apiService: ApiService,
         public dialog: MatDialog,
@@ -28,13 +30,9 @@ export class ProfessionalsDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.apiService.get(`/professionals/${this.id}`).subscribe({
             next: data => {
-                this.data = Object.keys(data).reduce((acc, cur) => {
-                    acc[cur.replace( /([-_]\w)/g, g => g[1].toUpperCase())] = data[cur]
-                    return acc
-                }, {}) as ProfessionalDetails
+                this.data = this.utils.snakeToCamel(data)
 
                 const date = new Date(this.data.createdAt)
-
                 this.formatedCreatedAt = `${date.getUTCDate()}/${date.getUTCMonth()}/${date.getFullYear()}`
             },
             error: () => {

@@ -12,5 +12,7 @@ export interface User {
         registerNumber?: string
         costLevel?: number
         observations?: string
+        createdAt: string
+        updatedAt: string
     }
 }

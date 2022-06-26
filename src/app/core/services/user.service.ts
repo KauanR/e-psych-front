@@ -7,6 +7,7 @@ import { RegistrationComponent } from 'src/app/shared/registration/registration.
 import { User } from '../interfaces/user'
 import { Router } from '@angular/router'
 import { SnackbarService } from './snackbar.service'
+import { UtilsService } from './utils.service'
 
 const EMPTY_USER: User = {
     id: '',
@@ -36,6 +37,7 @@ export class UserService implements OnDestroy {
     private authStateSub: Subscription
 
     constructor(
+        private utils: UtilsService,
         private authService: SocialAuthService,
         private apiService: ApiService,
         private dialog: MatDialog,
@@ -77,23 +79,12 @@ export class UserService implements OnDestroy {
                 const user = Object.keys(patient).length !== 0 ? patient : professional
                 const user_type = Object.keys(patient).length !== 0 ? 'patient' : 'professional'
 
+                const { id, ...attributes } = user
+
                 this.user.next({
                     id: user.id,
                     type: user_type,
-                    attributes: {
-                        name: user.name,
-                        email: user.email,
-                        photoUrl: user.photo_url,
-                        phoneNumber: user.phone_number,
-                        address: user.address,
-                        addressNumber: user.address_number,
-                        zipCode: user.zip_code,
-                        ...(user_type === 'professional') && {
-                            registerNumber: user.register_number,
-                            costLevel: user.cost_level,
-                            observations: user.observations
-                        }
-                    }
+                    attributes: this.utils.snakeToCamel(attributes)
                 })
 
                 if(closeDialogs)

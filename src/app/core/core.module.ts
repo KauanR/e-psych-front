@@ -16,6 +16,7 @@ import { MatRippleModule } from '@angular/material/core'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDividerModule } from '@angular/material/divider'
 import { CommonModule } from '@angular/common'
+import { UtilsService } from './services/utils.service'
 
 const exportable: any[] = [
     HeaderComponent
@@ -41,6 +42,7 @@ const exportable: any[] = [
         UserService,
         ApiService,
         SnackbarService,
+        UtilsService,
 
         AuthGuard
     ]

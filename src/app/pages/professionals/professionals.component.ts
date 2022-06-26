@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator'
 import { debounceTime, map, merge, startWith, Subscription, switchMap } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
+import { UtilsService } from 'src/app/core/services/utils.service'
 import { ProfessionalSum } from './interfaces/professional-sum'
 
 @Component({
@@ -27,6 +28,7 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
     selectedProfessionalId: string
 
     constructor(
+        private utils: UtilsService,
         private formBuilder: FormBuilder,
         private apiService: ApiService,
         private dialog: MatDialog
@@ -67,23 +69,10 @@ export class ProfessionalsComponent implements OnInit, AfterViewInit, OnDestroy 
                     this.professionalsCount = res.count
 
                     return res.data.map(item => {
-                        const { 
-                            cost_level,
-                            full_address,
-                            register_number,
-                            photo_url,
-                            observations,
-                            ...otherAttributes 
-                        } = item
+                        item = this.utils.snakeToCamel(item)
+                        item.observations = item.observations.replace(/^(.{100}[^\s]*).*/, "$1")
 
-                        return {
-                            ...otherAttributes,
-                            observations: observations.replace(/^(.{100}[^\s]*).*/, "$1"),
-                            registerNumber: register_number,
-                            costLevel: cost_level,
-                            fullAddress: full_address,
-                            photoUrl: photo_url
-                        }
+                        return item
                     })
                 })
             )
