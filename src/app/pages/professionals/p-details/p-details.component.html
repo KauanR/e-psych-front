@@ -115,6 +115,7 @@
     </button>
 
     <button 
+        *ngIf="userType === 'patient'"
         mat-raised-button 
         color="primary" 
         (click)="requestAttendance()">

@@ -15,6 +15,8 @@ export class ProfessionalsDetailsComponent implements OnInit {
 
     @Input() id: string
 
+    userType: 'patient' | 'professional'
+
     data: ProfessionalDetails
 
     formatedCreatedAt: string
@@ -28,6 +30,8 @@ export class ProfessionalsDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.userType = this.userService.user.getValue().type
+
         this.apiService.get(`/professionals/${this.id}`).subscribe({
             next: data => {
                 this.data = this.utils.snakeToCamel(data)
