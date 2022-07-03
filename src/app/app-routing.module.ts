@@ -9,6 +9,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'attendance/:id',
+        loadChildren: () => import('./pages/attendance/attendance.module').then(mod => mod.AttendanceModule),
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'home',
         loadChildren: () => import('./pages/home/home.module').then(mod => mod.HomeModule),
         canActivate: [AuthGuard]

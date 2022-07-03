@@ -25,7 +25,11 @@
 
         <div class="attendances-wrap" *ngIf="userType">
             <ng-container *ngFor="let at of attendances; let i = index">
-                <mat-card [ngClass]="{inactive: statusIconMap[at.status] === 'do_not_disturb_on'}" class="mat-elevation-z2 attendance">
+                <mat-card 
+                    [routerLink]="['/attendance', userType === 'patient' ? at.professional.id : at.patient.id]"
+                    [ngClass]="{inactive: statusIconMap[at.status] === 'do_not_disturb_on'}" 
+                    class="mat-elevation-z2 attendance"
+                >
                     <div class="head">
                         <img 
                             class="photo"
