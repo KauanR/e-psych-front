@@ -1,4 +1,4 @@
-<mat-card class="main-card">
+<mat-card class="mat-elevation-z6 main-card">
     <mat-card-header>
         <mat-icon mat-card-avatar>
             manage_search
@@ -46,7 +46,7 @@
                 <mat-card 
                     *ngFor="let pro of professionals"
                     (click)="openPDetails(pro.id)"
-                    class="professional" 
+                    class="mat-elevation-z2 professional" 
                     matRipple
                 >
                     <mat-card-header>

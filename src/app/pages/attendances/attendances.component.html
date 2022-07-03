@@ -1,4 +1,4 @@
-<mat-card class="main">
+<mat-card class="mat-elevation-z6 main">
     <mat-card-header>
         <mat-icon mat-card-avatar>
             healing
@@ -25,7 +25,7 @@
 
         <div class="attendances-wrap" *ngIf="userType">
             <ng-container *ngFor="let at of attendances; let i = index">
-                <mat-card [ngClass]="{inactive: statusIconMap[at.status] === 'do_not_disturb_on'}" class="attendance">
+                <mat-card [ngClass]="{inactive: statusIconMap[at.status] === 'do_not_disturb_on'}" class="mat-elevation-z2 attendance">
                     <div class="head">
                         <img 
                             class="photo"
@@ -39,8 +39,6 @@
                         {{ userType === 'patient' ? at.professional.name : at.patient.name }}
                     </h2>
                 </mat-card>
-
-                <mat-divider inset *ngIf="i !== attendances.length - 1"></mat-divider>
             </ng-container>
         </div>
 
