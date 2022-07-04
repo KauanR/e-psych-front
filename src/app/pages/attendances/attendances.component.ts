@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { debounceTime, filter, map, startWith, Subscription, switchMap } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
@@ -11,11 +11,12 @@ import { Attendance } from './interfaces/attendance'
     templateUrl: 'attendances.component.html',
     styleUrls: ['attendances.component.scss']
 })
-export class AttendancesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AttendancesComponent implements OnInit, OnDestroy {
 
     filterForm: FormGroup
 
     userSub: Subscription
+    userId: string
     userType: 'patient' | 'professional'
 
     loading: boolean = true
@@ -45,10 +46,14 @@ export class AttendancesComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.userSub = this.userService.user
             .pipe(debounceTime(500), filter(val => val.id !== ''))
-            .subscribe(val => this.userType = val.type)
+            .subscribe(val => {
+                this.userId = val.id
+                this.userType = val.type
+                this.loadData()
+            })
     }
 
-    ngAfterViewInit(): void {
+    private loadData(): void {
         this.filterForm.valueChanges
             .pipe(
                 startWith(this.filterForm.value),
@@ -56,13 +61,14 @@ export class AttendancesComponent implements OnInit, AfterViewInit, OnDestroy {
                 switchMap(() => {
                     this.loading = true
                     const ACTIVE_STATUS = Object.entries(this.filterForm.value).reduce((acc, cur) => {
-                        if(cur[1])
-                            acc += `${cur[0]},`
-
+                        if(cur[1]) acc += `${cur[0]},`
                         return acc
                     }, '')
 
-                    return this.apiService.get(`/attendances?status=${ACTIVE_STATUS.slice(0, -1)}`)
+                    const id = `${this.userType}_id=${this.userId}`
+                    const status = `status=${ACTIVE_STATUS.slice(0, -1)}`
+
+                    return this.apiService.get(`/attendances?${id}&${status}`)
                 }),
                 map(res => {
                     this.loading = false
