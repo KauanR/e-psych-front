@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { FormBuilder, FormControl } from '@angular/forms'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute } from '@angular/router'
 import { combineLatest, debounceTime, Subscription } from 'rxjs'
 import { User } from 'src/app/core/interfaces/user'
 import { ApiService } from 'src/app/core/services/api.service'
 import { UserService } from 'src/app/core/services/user.service'
 import { UtilsService } from 'src/app/core/services/utils.service'
+import { AttendanceAppointmentsComponent } from './a-appointments/a-appointments.component'
+import { AttendanceReportsComponent } from './a-reports/a-reports.component'
 import { AttendanceDataCtrl } from './interfaces/a-data-ctrl'
 import { Attendance } from './interfaces/attendance'
 
@@ -15,6 +17,9 @@ import { Attendance } from './interfaces/attendance'
     styleUrls: ['attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit, OnDestroy {
+
+    @ViewChild('appointments') appointmentsComponent: AttendanceAppointmentsComponent
+    @ViewChild('reports') reportsComponent: AttendanceReportsComponent
 
     user: User
     sub: Subscription
@@ -30,7 +35,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
         private apiService: ApiService,
         private utils: UtilsService,
         private route: ActivatedRoute,
-        private formBuilder: FormBuilder
+        public dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -65,6 +70,11 @@ export class AttendanceComponent implements OnInit, OnDestroy {
                 this.dataCtrl.loading = false
             }
         })
+    }
+
+    refreshData(): void {
+        this.appointmentsComponent.loadData()
+        this.reportsComponent.loadData()
     }
 
 }

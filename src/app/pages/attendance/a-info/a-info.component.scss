@@ -1,4 +1,6 @@
 mat-card {
+    height: max-content;
+
     & > mat-card-header {
         mat-card-title {
             color: var(--accent);

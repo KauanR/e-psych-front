@@ -13,13 +13,19 @@ import { MatTabsModule } from '@angular/material/tabs'
 import { AttendanceAppointmentsComponent } from './a-appointments/a-appointments.component'
 import { AttendanceReportsComponent } from './a-reports/a-reports.component'
 import { MatButtonModule } from '@angular/material/button'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatDialogModule } from '@angular/material/dialog'
+import { AttendanceAddComponent } from './a-add/a-add.component'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
 
 @NgModule({
     declarations: [
         AttendanceComponent,
         AttendanceInfoComponent,
         AttendanceAppointmentsComponent,
-        AttendanceReportsComponent
+        AttendanceReportsComponent,
+        AttendanceAddComponent
     ],
     imports: [
         CommonModule,
@@ -36,7 +42,14 @@ import { MatButtonModule } from '@angular/material/button'
         MatInputModule,
         MatSelectModule,
         MatTabsModule,
-        MatButtonModule
+        MatButtonModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+    ],
+    providers: [
+        MatDatepickerModule
     ]
 })
-export class AttendanceModule {}
+export class AttendanceModule { }

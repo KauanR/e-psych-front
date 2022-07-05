@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>
+    Adicionar Consulta ou Laudo
+</h2>
+
+<div mat-dialog-content>
+    <mat-tab-group mat-align-tabs="center" [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+        <mat-tab label="Consulta">
+            <form [formGroup]="appointmentForm">
+                <mat-form-field class="no-padding">
+                    <mat-label>Data</mat-label>
+                    <input formControlName="date" matInput [matDatepicker]="picker">
+                    <mat-error *ngIf="appointmentForm.get('date')?.hasError('required')">
+                        A Data é obrigatória
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Anotações</mat-label>
+                    <textarea type="text" matInput formControlName="annotations"></textarea>
+                    <mat-error *ngIf="appointmentForm.get('annotations')?.hasError('required')">
+                        As Anotações são obrigatórias
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </mat-tab>
+
+        <mat-tab label="Laudo">
+            <form [formGroup]="reportForm">
+                <mat-form-field>
+                    <mat-label>Descrição</mat-label>
+                    <textarea type="text" matInput formControlName="description"></textarea>
+                    <mat-error *ngIf="reportForm.get('annotations')?.hasError('required')">
+                        A Descrição é obrigatória
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button 
+        mat-raised-button
+        color="primary"
+        [disabled]="selected.value === 0 ? !appointmentForm.valid : !reportForm.valid"
+        (click)="selected.value === 0 ? submitAppointment() : submitReport()"
+    >
+        Adicionar
+    </button>
+</div>

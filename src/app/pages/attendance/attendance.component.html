@@ -5,14 +5,31 @@
         [user]="user">
     </app-attendance-info>
 
-    <mat-card class="mat-elevation-z6">
+    <mat-card class="data mat-elevation-z6">
         <mat-tab-group mat-align-tabs="center">
             <mat-tab label="Consultas">
-                <app-attendance-appointments></app-attendance-appointments>
+                <app-attendance-appointments 
+                    #appointments 
+                    [id]="dataCtrl.data.id" 
+                    [status]="dataCtrl.data.status">
+                </app-attendance-appointments>
             </mat-tab>
+
             <mat-tab label="Laudos">
-                <app-attendance-reports></app-attendance-reports>
+                <app-attendance-reports 
+                    #reports
+                    [id]="dataCtrl.data.id" 
+                    [status]="dataCtrl.data.status">
+                </app-attendance-reports>
             </mat-tab>
         </mat-tab-group>
     </mat-card>
+
+    <button id="add" mat-mini-fab color="warn" (click)="dialog.open(add)">
+        <mat-icon>add</mat-icon>
+    </button>
 </div>
+
+<ng-template #add>
+    <app-attendance-add [id]="dataCtrl.data.id" (refreshData)="refreshData()"></app-attendance-add>
+</ng-template>
