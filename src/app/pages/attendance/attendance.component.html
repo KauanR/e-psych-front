@@ -25,7 +25,13 @@
         </mat-tab-group>
     </mat-card>
 
-    <button id="add" mat-mini-fab color="warn" (click)="dialog.open(add)">
+    <button 
+        *ngIf="user.type === 'professional'  && dataCtrl.data.status === 'active'" 
+        id="add" 
+        mat-mini-fab 
+        color="warn" 
+        (click)="dialog.open(add)"
+    >
         <mat-icon>add</mat-icon>
     </button>
 </div>
