@@ -1,1 +1,18 @@
-attendance
+<div *ngIf="!dataCtrl.error && !dataCtrl.loading" class="wrap">
+    <app-attendance-info 
+        [attendance]="dataCtrl.data"
+        (updateStatusEmitter)="dataCtrl.data.status = $event"
+        [user]="user">
+    </app-attendance-info>
+
+    <mat-card class="mat-elevation-z6">
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="Consultas">
+                <app-attendance-appointments></app-attendance-appointments>
+            </mat-tab>
+            <mat-tab label="Laudos">
+                <app-attendance-reports></app-attendance-reports>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+</div>

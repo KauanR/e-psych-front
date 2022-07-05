@@ -1,0 +1,63 @@
+<mat-card class="mat-elevation-z6">
+    <mat-card-header>
+        <mat-icon mat-card-avatar>
+            health_and_safety
+        </mat-icon>
+        <mat-card-title>Acompanhamento</mat-card-title>
+        <mat-card-subtitle>Confira aqui todos os detalhes do seu acompanhamento</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="head">
+            <img 
+                class="photo"
+                [src]="attendance.related.photoUrl"
+                onerror="this.onerror=null;this.src='../../../assets/images/user-placeholder.png'">
+            <h2>{{ attendance.related.name }}</h2>
+        </div>
+
+        <div class="status">
+            <mat-form-field class="no-padding">
+                <mat-label>Status</mat-label>
+                <mat-select [formControl]="statusForm">
+                    <mat-select-trigger>
+                        <mat-icon [ngClass]="statusIconMap[statusForm.value]">
+                            {{ statusIconMap[statusForm.value] }}
+                        </mat-icon>
+                        {{ statusNameMap[statusForm.value] }}
+                    </mat-select-trigger>
+                    <mat-option value="active">
+                        <mat-icon class="check_circle">
+                            check_circle
+                        </mat-icon>
+                        Ativo
+                    </mat-option>
+                    <mat-option value="inactive">
+                        <mat-icon class="do_not_disturb_on">
+                            do_not_disturb_on
+                        </mat-icon>
+                        Inativo
+                    </mat-option>
+                    <mat-option value="pending">
+                        <mat-icon class="pending">
+                            pending
+                        </mat-icon>
+                        Pendente
+                    </mat-option>
+                    <mat-option value="rejected">
+                        <mat-icon class="error">
+                            error
+                        </mat-icon>
+                        Rejeitado
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div *ngIf="showConfirmButton" class="update-status-wrap">
+    <button mat-flat-button color="primary" (click)="updateStatus()">
+        Atualizar status
+    </button>
+</div>

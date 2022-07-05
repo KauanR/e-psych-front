@@ -1,0 +1,64 @@
+mat-card {
+    & > mat-card-header {
+        mat-card-title {
+            color: var(--accent);
+        }
+        
+        mat-icon {
+            font-size: 40px;
+            color: var(--accent);
+        }
+    }
+
+    div.head {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    
+        img.photo {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: .5rem;
+        }
+    }
+
+    div.status {
+        display: flex;
+        justify-content: center;
+    
+        mat-form-field {
+            width: 80%;
+    
+            mat-select-trigger {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+    
+            ::ng-deep .mat-select-arrow-wrapper {
+                height: 0px;
+            }
+        }
+    }
+}
+
+mat-icon.pending {
+    color: #F0A500;
+}
+
+mat-icon.check_circle {
+    color: green !important;
+}
+
+mat-icon.error {
+    color: red;
+}
+
+div.update-status-wrap {
+    margin-top: .5rem;
+    display: flex;
+    justify-content: center;
+}
