@@ -1,0 +1,24 @@
+<mat-accordion *ngIf="!dataCtrl.loading && !dataCtrl.error" multi>
+    <mat-expansion-panel *ngFor="let appointment of dataCtrl.data">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Consulta {{appointment.id}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="appointment">
+            <mat-form-field id="date" class="no-padding">
+                <mat-label>Data</mat-label>
+                <input matInput readonly [value]="appointment.date">
+            </mat-form-field>
+            <mat-form-field id="createdAt" class="no-padding">
+                <mat-label>Gerado em</mat-label>
+                <input matInput readonly [value]="appointment.createdAt">
+            </mat-form-field>
+            <mat-form-field id="annotations" class="no-padding">
+                <mat-label>Anotações</mat-label>
+                <textarea matInput readonly [value]="appointment.annotations"></textarea>
+            </mat-form-field>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

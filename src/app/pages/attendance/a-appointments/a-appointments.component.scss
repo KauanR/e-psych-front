@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    padding: .5rem;
+
+    div.appointment {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+
+        #date,
+        #createdAt {
+            grid-column: span 1;
+        }
+        
+        #annotations {
+            grid-column: span 2;
+        }
+    }
+}
