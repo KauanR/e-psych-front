@@ -46,7 +46,8 @@ import { MatNativeDateModule } from '@angular/material/core'
         MatExpansionModule,
         MatDialogModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatExpansionModule
     ],
     providers: [
         MatDatepickerModule

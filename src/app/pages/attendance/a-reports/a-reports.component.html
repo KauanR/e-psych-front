@@ -1,0 +1,20 @@
+<mat-accordion *ngIf="!dataCtrl.loading && !dataCtrl.error" multi>
+    <mat-expansion-panel *ngFor="let report of dataCtrl.data">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Laudo {{report.id}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="report">
+            <mat-form-field>
+                <mat-label>Descrição</mat-label>
+                <textarea type="text" matInput readonly [value]="report.description"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Gerado em</mat-label>
+                <input matInput readonly [value]="report.createdAt">
+            </mat-form-field>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
