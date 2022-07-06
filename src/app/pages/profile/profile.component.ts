@@ -108,7 +108,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     delete(): void {
-        const url = `/${this.user.type}/${this.user.id}`
+        const url = `/${this.user.type}s/${this.user.id}`
 
         this.apiService.delete(url).subscribe({
             next: () => {
